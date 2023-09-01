@@ -4,7 +4,7 @@ import { defineConfig, devices } from '@playwright/test';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+require('dotenv').config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -28,13 +28,34 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    // headless: false,
+    // ignoreHTTPSErrors: true,
+    // viewport: { width: 1280, height: 720 },
+    // video: 'on-first-retry',
+
   },
+
+    // timeout: 30000, //https://playwright.dev/docs/test-timeouts
+    // expect: {
+      /**
+       * Maximum time expect() should wait for the condition to be met.
+       * For exemple in 'await expect(locator).toHoaveText()',
+       */
+      // timeout: 10000,
+    // },
+
+/* Folder for test artifacts such as screenshots, videos, traces, etc, */
+// outptDir: 'test-results/',
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1280, height: 720},
+      },
     },
 
     {
